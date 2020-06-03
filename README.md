@@ -6,7 +6,7 @@ Use "quick sort (QS)" and "prune &amp; search (PS)"  to sort the given n numbers
 
 | quick sort (QS) | prune &amp; search (PS) |
 | --------------- | ----------------------- |
-| $O(n log n)$    | $O(n)$                  |
+| O(n log n)      | O(n)                    |
 
 # How to run?
 1. Environments 
@@ -20,6 +20,20 @@ Use "quick sort (QS)" and "prune &amp; search (PS)"  to sort the given n numbers
     * `$ ./quick_sort.exe data/input.txt`
     * `$ ./prune_and_search.exe data/input.txt`
 
+# Input / Output
+* Preview input.txt
+```cpp
+// with n numbers and locate the k-th element
+10000 4159
+// unsorted data below
+8783 16199 7648 14201 12254 3732 13701 840 8477 5175 9408 7595 9652 19317 3908  ...
+```
+
+* Preview QS.txt
+```cpp
+8350 // the number of k-th element
+0.002023 // the program execution time
+```
 
 # Experimental results
 * Quick sort (QS)
@@ -39,5 +53,9 @@ Use "quick sort (QS)" and "prune &amp; search (PS)"  to sort the given n numbers
 | case2   |       |       |       |       |       |       |     |       |
 | case3   |       |       |       |       |       |       |     |       |
 | Average |       |       |       |       |       |       |     |       |
+
+# References
+1. quick sort: https://www.geeksforgeeks.org/quickselect-algorithm/
+2. prune and search: https://www.geeksforgeeks.org/kth-smallestlargest-element-unsorted-array-set-3-worst-case-linear-time/
 
 ###### tags: `Algorithm`
