@@ -1,12 +1,16 @@
 // CPP program for implementation of QuickSelect 
-#include <bits/stdc++.h> 
-using namespace std; 
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+using namespace std::chrono;
+using namespace std;
 
 // Standard partition process of QuickSort(). 
 // It considers the last element as pivot 
 // and moves all smaller element to left of 
 // it and greater elements to right 
-int partition(int arr[], int l, int r) 
+int partition(vector<int>& arr, int l, int r) 
 { 
 	int x = arr[r], i = l; 
 	for (int j = l; j <= r - 1; j++) { 
@@ -23,7 +27,7 @@ int partition(int arr[], int l, int r)
 // element in arr[l..r] using QuickSort 
 // based method. ASSUMPTION: ALL ELEMENTS 
 // IN ARR[] ARE DISTINCT 
-int kthSmallest(int arr[], int l, int r, int k) 
+int kthSmallest(vector<int>& arr, int l, int r, int k) 
 { 
 	// If k is smaller than number of 
 	// elements in array 
@@ -54,13 +58,40 @@ int kthSmallest(int arr[], int l, int r, int k)
 } 
 
 // Driver program to test above methods 
-int main() 
+int main(int argc, char* argv[]) 
 { 
-	int arr[] = { 10, 4, 5, 8, 6, 11, 26 }; 
-	int n = sizeof(arr) / sizeof(arr[0]); 
-	int k = 3; 
-	cout << "K-th smallest element is "
-		<< kthSmallest(arr, 0, n - 1, k); 
+	freopen(argv[1], "r", stdin);
+	int n, k;
+	std::cin >> n >> k;
+	cout << n << " " << k << endl;
+
+	vector<int> arr(n); 
+	for (int i = 0; i < n; i++)
+	{
+		std::cin >> arr[i];
+	}
+	
+	// check out array
+	// for (int i = 0; i < n; i++)
+	// 	std::cout << arr[i] << " " << std::ends;
+	// cout << endl;
+
+	// quick sort method (qs)
+	auto qs_start = high_resolution_clock::now();
+	int qs_result = kthSmallest(arr, 0, n - 1, k);
+	auto qs_stop = high_resolution_clock::now();
+	auto qs_duration = duration_cast<nanoseconds>(qs_stop - qs_start);
+	
+	// write file to QS.txt
+	ofstream qs_output_file("QS.txt");
+	qs_output_file << qs_result << endl;
+	float qs_time = (qs_duration.count())/(1e+9);
+	qs_output_file << std::fixed << std::setprecision(6) << qs_time;
+	qs_output_file.close();
+
+	// screan output
+	cout << "K-th smallest element is "	<< qs_result << endl; 
+	cout << "Running time of the program " << std::fixed << std::setprecision(6) << qs_time << endl;
 	return 0; 
 } 
 
