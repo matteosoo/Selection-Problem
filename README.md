@@ -19,6 +19,10 @@ Use "quick sort (QS)" and "prune &amp; search (PS)"  to sort the given n numbers
 3. Execution
     * `$ ./quick_sort.exe data/input.txt`
     * `$ ./prune_and_search.exe data/input.txt`
+4. Data generation (optional)
+    * `$ python data_generation.py`
+    * Input size (i) is  10000 to 30000 in steps 1000
+    * Random list(unsorted data) is integers with range [1,20000]
 
 # Input / Output
 * Preview input.txt
@@ -57,5 +61,6 @@ Use "quick sort (QS)" and "prune &amp; search (PS)"  to sort the given n numbers
 # References
 1. quick sort: https://www.geeksforgeeks.org/quickselect-algorithm/
 2. prune and search: https://www.geeksforgeeks.org/kth-smallestlargest-element-unsorted-array-set-3-worst-case-linear-time/
+3. https://www.ptt.cc/bbs/Grad-ProbAsk/M.1255803641.A.D78.html
 
 ###### tags: `Algorithm`
