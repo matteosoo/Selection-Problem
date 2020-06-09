@@ -29,7 +29,7 @@ for i in range(10000, 31000, 1000):
         if j != len(random_list)-1:
             fp.write(' ')
     
-    # 關閉檔案
+    # close file
     fp.close()
 
     print(i, k)
