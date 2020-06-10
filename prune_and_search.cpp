@@ -1,7 +1,6 @@
 // C++ implementation of worst case linear time algorithm 
 // to find k'th smallest element 
 #include<iostream> 
-#include<algorithm> 
 #include<climits> 
 
 #include <vector>
@@ -14,9 +13,70 @@ int partition(vector<int>& arr, int l, int r, int k);
 
 // A simple function to find median of arr[]. This is called 
 // only for an array of size 5 in this program. 
-int findMedian(vector<int>& arr, int n) 
+void merge(vector<int>& arr, int l, int m, int r) 
 { 
-	sort(arr.begin(), arr.begin()+n); // Sort the array 
+    int i, j, k; 
+    int n1 = m - l + 1; 
+    int n2 = r - m; 
+  
+    /* create temp arrays */
+    int L[n1], R[n2]; 
+  
+    /* Copy data to temp arrays L[] and R[] */
+    for (i = 0; i < n1; i++) 
+        L[i] = arr[l + i]; 
+    for (j = 0; j < n2; j++) 
+        R[j] = arr[m + 1 + j]; 
+  
+    /* Merge the temp arrays back into arr[l..r]*/
+    i = 0; // Initial index of first subarray 
+    j = 0; // Initial index of second subarray 
+    k = l; // Initial index of merged subarray 
+    while (i < n1 && j < n2) { 
+        if (L[i] <= R[j]) { 
+            arr[k] = L[i]; 
+            i++; 
+        } 
+        else { 
+            arr[k] = R[j]; 
+            j++; 
+        } 
+        k++; 
+    } 
+  
+    /* Copy the remaining elements of L[], if there 
+       are any */
+    while (i < n1) { 
+        arr[k] = L[i]; 
+        i++; 
+        k++; 
+    } 
+  
+    /* Copy the remaining elements of R[], if there 
+       are any */
+    while (j < n2) { 
+        arr[k] = R[j]; 
+        j++; 
+        k++; 
+    } 
+} 
+void mergeSort(vector<int>& arr, int l, int r) 
+{ 
+    if (l < r) { 
+        // Same as (l+r)/2, but avoids overflow for 
+        // large l and h 
+        int m = l + (r - l) / 2; 
+  
+        // Sort first and second halves 
+        mergeSort(arr, l, m); 
+        mergeSort(arr, m + 1, r); 
+  
+        merge(arr, l, m, r); 
+    } 
+} 
+int findMedian(vector<int>& arr, int start_indx, int n) 
+{ 
+	mergeSort(arr, start_indx, n - 1);
 	return arr[n/2]; // Return middle element 
 } 
 
@@ -33,17 +93,19 @@ int kthSmallest(vector<int>& arr, int l, int r, int k)
 		// of every group and store it in median[] array. 
 		int i;
 		vector<int> median((n+4)/5); // There will be floor((n+4)/5) groups; 
-		vector<int>::const_iterator first = arr.begin() + l+i*5;
+		// vector<int>::const_iterator first = arr.begin() + l+i*5;
 
 		for (i=0; i<n/5; i++) 
 		{
-			vector<int> sub_arr(first, first+5);
-			median[i] = findMedian(sub_arr, 5); 
+			// vector<int> sub_arr(first, first+5);
+			// median[i] = findMedian(sub_arr, 5); 
+			median[i] = findMedian(arr, l+i*5, 5);
 		}
 		if (i*5 < n) //For last group with less than 5 elements 
 		{ 
-			vector<int> sub_arr(first, first+(n%5));
-			median[i] = findMedian(sub_arr, n%5); 
+			// vector<int> sub_arr(first, first+(n%5));
+			// median[i] = findMedian(sub_arr, n%5); 
+			median[i] = findMedian(arr, l+i*5, n%5);
 			i++; 
 		}
 
@@ -133,7 +195,7 @@ int main(int argc, char* argv[])
 
 	// screan output
 	std::cout << "K-th smallest element is "	<< ps_result << endl; 
-	std::cout << "Running time of the program " << std::fixed << std::setprecision(6) << ps_time << endl;
+	std::cout << "Running time of the program " << std::fixed << std::setprecision(6) << ps_time << " s" << endl;
 	return 0; 
 } 
 
