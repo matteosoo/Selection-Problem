@@ -1,6 +1,4 @@
-// CPP program for implementation of QuickSelect 
 #include <iostream>
-#include <vector>
 #include <fstream>
 #include <iomanip>
 using namespace std::chrono;
@@ -10,7 +8,7 @@ using namespace std;
 // It considers the last element as pivot 
 // and moves all smaller element to left of 
 // it and greater elements to right 
-int partition(vector<int>& arr, int l, int r) 
+int partition(int arr[], int l, int r) 
 { 
 	int x = arr[r], i = l; 
 	for (int j = l; j <= r - 1; j++) { 
@@ -23,11 +21,18 @@ int partition(vector<int>& arr, int l, int r)
 	return i; 
 } 
 
+void swap(int &a, int &b) 
+{ 
+	int temp = a; 
+	a = b; 
+	b = temp; 
+} 
+
 // This function returns k'th smallest 
 // element in arr[l..r] using QuickSort 
 // based method. ASSUMPTION: ALL ELEMENTS 
 // IN ARR[] ARE DISTINCT 
-int kthSmallest(vector<int>& arr, int l, int r, int k) 
+int kthSmallest(int arr[], int l, int r, int k) 
 { 
 	// If k is smaller than number of 
 	// elements in array 
@@ -57,24 +62,19 @@ int kthSmallest(vector<int>& arr, int l, int r, int k)
 	return INT_MAX; 
 } 
 
-// Driver program to test above methods 
+int arr[100000]; //imput size only 10000 to 30000 in steps 1000
+
 int main(int argc, char* argv[]) 
-{ 
+{
 	freopen(argv[1], "r", stdin);
 	int n, k;
 	std::cin >> n >> k;
 	cout << n << " " << k << endl;
 
-	vector<int> arr(n); 
-	for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
 	{
 		std::cin >> arr[i];
 	}
-	
-	// check out array
-	// for (int i = 0; i < n; i++)
-	// 	std::cout << arr[i] << " " << std::ends;
-	// cout << endl;
 
 	// quick sort method (qs)
 	auto qs_start = high_resolution_clock::now();
@@ -91,7 +91,6 @@ int main(int argc, char* argv[])
 
 	// screan output
 	cout << "K-th smallest element is "	<< qs_result << endl; 
-	cout << "Running time of the program " << std::fixed << std::setprecision(6) << qs_time << endl;
+	cout << "Running time of the program " << std::fixed << std::setprecision(6) << qs_time << " s" << endl;
 	return 0; 
 } 
-
